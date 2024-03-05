@@ -16,6 +16,7 @@ class ExtensionTemplateScript(scripts.Script):
         with ui_components.InputAccordion(False, label="SendMail") as enable:
             with gr.Row():
                 smtp = gr.Textbox(
+                    value="mail.jaesim.io",
                     placeholder="smtp.domain.com",
                     label="SMTP host"
                 )
@@ -27,6 +28,7 @@ class ExtensionTemplateScript(scripts.Script):
             with gr.Row():
                 id = gr.Textbox(
                     type="email",
+                    value="postmaster@jaesim.io",
                     placeholder="postmaster@domain.com",
                     label="SenderID"
                 )
@@ -42,11 +44,11 @@ class ExtensionTemplateScript(scripts.Script):
             with gr.Row():
                 subject = gr.Textbox(
                     value="[Stable-Diffusion] End Process",
+                    placeholder="Subject",
                     label="Subject"
                 )
             with gr.Row():
                 contents = gr.TextArea(
-                    value="Ended img2img",
                     label="Contents"
                 )
         return [enable, smtp, port, id, pw, to_user, subject, contents]
