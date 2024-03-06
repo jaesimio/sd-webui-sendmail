@@ -43,8 +43,7 @@ class ExtensionTemplateScript(scripts.Script):
                 )
             with gr.Row():
                 subject = gr.Textbox(
-                    value="[Stable-Diffusion] End Process",
-                    placeholder="Subject",
+                    placeholder="Default: [Stable-Diffusion] End Process",
                     label="Subject"
                 )
             with gr.Row():
@@ -60,7 +59,7 @@ class ExtensionTemplateScript(scripts.Script):
         self.sendmail_id = id
         self.sendmail_pw = pw
         self.to_user = to_user
-        self.subject = subject
+        self.subject = subject if subject else "[Stable-Diffusion] End Process"
         self.contents = contents
 
     def postprocess(self, p: StableDiffusionProcessing, processed: Processed, *args):
