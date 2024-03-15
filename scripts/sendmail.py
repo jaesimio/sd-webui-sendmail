@@ -4,6 +4,7 @@ import gradio as gr
 from modules import ui_components
 from modules.processing import Processed, StableDiffusionProcessing
 from scripts.sendmail_core import StmtMail
+from modules.scripts import PostprocessBatchListArgs
 
 class ExtensionTemplateScript(scripts.Script):
     def title(self):
@@ -62,7 +63,7 @@ class ExtensionTemplateScript(scripts.Script):
         self.subject = subject if subject else "[Stable-Diffusion] End Process"
         self.contents = contents
 
-    def postprocess(self, p: StableDiffusionProcessing, processed: Processed, *args):
+    def finalprocess(self, p: StableDiffusionProcessing, processed: Processed, *args):
         if self.enable:
             information = f"\n\nSteps: {processed.steps}, Sampler: {processed.sampler_name}, CFG scale: {processed.cfg_scale}, Seed: {processed.seed}, Model hash: {processed.sd_model_hash}, Model: {processed.sd_model_name}, Denoising strength: {processed.denoising_strength}, Version: {processed.version}"
             StmtMail(STMT_HOST=self.smtp, PORT=self.port, ID=self.sendmail_id, PW=self.sendmail_pw).sendmail(
